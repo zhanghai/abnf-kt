@@ -16,9 +16,9 @@
 
 plugins {
     application
-    kotlin("jvm") version "1.9.23"
-    kotlin("plugin.allopen") version "1.9.23"
-    id("org.jetbrains.kotlinx.benchmark") version "0.4.10"
+    kotlin("jvm") version "2.1.0"
+    kotlin("plugin.allopen") version "2.1.0"
+    id("org.jetbrains.kotlinx.benchmark") version "0.4.13"
 }
 
 group = "me.zhanghai.kotlin.abnf"
@@ -29,9 +29,9 @@ repositories {
 }
 
 dependencies {
-    implementation("com.squareup:kotlinpoet:1.16.0")
+    implementation("com.squareup:kotlinpoet:1.18.1")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.4.10")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.4.13")
 }
 
 tasks.test {
