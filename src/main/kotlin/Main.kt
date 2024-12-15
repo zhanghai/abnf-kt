@@ -61,7 +61,7 @@ private fun String.isJavaIdentifier(): Boolean {
         return false
     }
     for (i in 1 ..< length) {
-        if (!this[i].isJavaIdentifierStart()) {
+        if (!this[i].isJavaIdentifierPart()) {
             return false
         }
     }
