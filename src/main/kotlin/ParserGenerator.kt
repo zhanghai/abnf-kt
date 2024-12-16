@@ -314,6 +314,6 @@ object ParserGenerator {
 
 private fun CodeBlock.Builder.endControlFlow(format: String, vararg args: Any?): CodeBlock.Builder {
     unindent()
-    add("}·$format\n", *args)
+    add("} $format\n", *args)
     return this
 }
