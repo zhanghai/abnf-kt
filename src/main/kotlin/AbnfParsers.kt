@@ -35,8 +35,7 @@ private class AbnfParserListener : AbnfParser.Listener {
     private var pendingIsIncrementalRule: Boolean? = null
     private var pendingRuleElement: Element? = null
 
-    private var pendingRepetitionCount: IntRange? = null
-
+    private var pendingRepetitionCountStack: MutableList<IntRange?> = mutableListOf()
     private val pendingElementsStack: MutableList<MutableList<Element>> = mutableListOf()
 
     override fun exitRule(input: String, startIndex: Int, endIndex: Int) {
@@ -133,12 +132,13 @@ private class AbnfParserListener : AbnfParser.Listener {
     }
 
     override fun enterRepetition(input: String, startIndex: Int) {
+        pendingRepetitionCountStack += null
         pendingElementsStack += mutableListOf<Element>()
     }
 
     override fun exitRepetition(input: String, startIndex: Int, endIndex: Int) {
         val elements = pendingElementsStack.removeLast()
-        val count = pendingRepetitionCount.also { pendingRepetitionCount = null }
+        val count = pendingRepetitionCountStack.removeLast()
         if (endIndex == -1) {
             return
         }
@@ -153,7 +153,7 @@ private class AbnfParserListener : AbnfParser.Listener {
         }
 
         val repeat = input.substring(startIndex, endIndex)
-        pendingRepetitionCount =
+        pendingRepetitionCountStack[pendingRepetitionCountStack.lastIndex] =
             if ('*' in repeat) {
                 val counts =
                     repeat.split('*', limit = 2).map { if (it.isEmpty()) null else it.toInt() }
